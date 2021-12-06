@@ -17,3 +17,7 @@
 ## Authors
 * Research: [Dr. Golestan Karami](https://www.linkedin.com/in/golestan-karami-45984938/)
 * Development: [Milad Sadeghi DM](https://elns.ir)
+
+
+## License
+This project licensed under the MIT License - see the [LICENSE](LICENSE) file for more details.
