@@ -14,3 +14,7 @@ import nibabel as nib
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.utils import to_categorical
+
+
+# Defining MinMaxScaler
+mm_scaler = MinMaxScaler()
