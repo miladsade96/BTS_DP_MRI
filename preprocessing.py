@@ -18,3 +18,9 @@ from tensorflow.keras.utils import to_categorical
 
 # Defining MinMaxScaler
 mm_scaler = MinMaxScaler()
+
+# List of Images
+t1_list = sorted(glob.glob("dataset/Train/*/*T1.nii"))
+MD_list = sorted(glob.glob("dataset/Train/*/*MD.nii"))
+rCBV_list = sorted(glob.glob("dataset/Train/*/*rCBV.nii"))
+Ann_list = sorted(glob.glob("dataset/Train/*/*Ann.nii"))
