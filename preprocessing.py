@@ -7,6 +7,7 @@
     Author: Milad Sadeghi DM - EverLookNeverSee@GitHub
 """
 
+import os
 import glob
 import numpy as np
 import nibabel as nib
