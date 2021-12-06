@@ -21,3 +21,9 @@
 
 ## License
 This project licensed under the MIT License - see the [LICENSE](LICENSE) file for more details.
+
+
+# References
+1. [Optimized U-Net for Brain Tumor Segmentation](https://arxiv.org/abs/2110.03352)
+2. [Optimized High Resolution 3D Dense-U-Net Network for Brain and Spine Segmentation](https://www.mdpi.com/2076-3417/9/3/404)
+3. [A novel fully automated MRI-based deep-learning method for classification of IDH mutation status in brain gliomas](https://pubmed.ncbi.nlm.nih.gov/31637430/)
