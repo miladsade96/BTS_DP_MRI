@@ -13,3 +13,7 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/EverLookNeverSee/BTS_DP_MRI)
 ![GitHub contributors](https://img.shields.io/github/contributors/EverLookNeverSee/BTS_DP_MRI)
 ![GitHub last commit](https://img.shields.io/github/last-commit/EverLookNeverSee/BTS_DP_MRI)
+
+## Authors
+* Research: [Dr. Golestan Karami](https://www.linkedin.com/in/golestan-karami-45984938/)
+* Development: [Milad Sadeghi DM](https://elns.ir)
