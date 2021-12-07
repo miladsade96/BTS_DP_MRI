@@ -26,6 +26,14 @@ rCBV_list = sorted(glob.glob("dataset/Train/*/*rCBV.nii"))
 Ann_list = sorted(glob.glob("dataset/Train/*/*Ann.nii"))
 
 
+PATH = os.path.abspath("dataset/")      # Getting absolute path
+os.chdir(PATH)  # Navigating to dataset
+for item in range(len(t1_list)):    # Creating new  specific directory for any sample in dataset
+    os.makedirs(f"npy_files/{item}", exist_ok=True)
+    print(f"{item} OK")
+os.chdir(os.path.dirname(os.path.abspath(__file__)))    # Navigating back to project root directory
+
+
 for img in range(len(t1_list)):
     print("Now preparing image and masks number: ", img)
 
