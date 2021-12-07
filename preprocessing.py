@@ -59,6 +59,15 @@ for img in range(len(t1_list)):
     output = os.path.abspath("dataset/npy_files/")
 
     temp_Ann = to_categorical(temp_Ann, num_classes=4)
-    np.save(f"{output}/{img}/image_" + str(img) + ".npy", temp_combined_images)
-    np.save(f"{output}/{img}/ann_" + str(img) + ".npy", temp_Ann)
-    print(f"Number {img} .npy files saved successfully.")
+
+    if os.path.isfile(f"{output}/{img}/image_" + str(img) + ".npy"):
+        print(f"Image file already exists.")
+    else:
+        np.save(f"{output}/{img}/image_" + str(img) + ".npy", temp_combined_images)
+        print(f"Number {img} image .npy files saved successfully.")
+
+    if os.path.isfile(f"{output}/{img}/ann_" + str(img) + ".npy"):
+        print(f"Annotation file already exists.")
+    else:
+        np.save(f"{output}/{img}/ann_" + str(img) + ".npy", temp_Ann)
+        print(f"Number {img} annotation .npy files saved successfully.")
