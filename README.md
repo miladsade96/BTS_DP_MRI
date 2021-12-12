@@ -19,11 +19,45 @@
 * Development: [Milad Sadeghi DM](https://elns.ir)
 
 
+## Sample Pipeline
+**Pre-processing:**  
+Desired dataset structure:  
+```
+.
+└── Train
+    ├── 001
+    │   ├── 001-Ann.nii
+    │   ├── 001-MD.nii
+    │   ├── 001-rCBV.nii
+    │   └── 001-T1.nii
+    ├── 002
+    │   ├── 002-Ann.nii
+    │   ├── 002-MD.nii
+    │   ├── 002-rCBV.nii
+    │   └── 002-T1.nii
+```
+Do preprocessing on dataset:
+```shell
+python --verbose --dataset <path to dataset directory>
+```
+This will create a new directory called *npy_files*, then creates specific folders for
+each sample we have in dataset and saves image.npy and ann.py files in these folders.
+```
+npy_files/
+├── 0
+│   ├── ann_0.npy
+│   └── image_0.npy
+├── 1
+│   ├── ann_1.npy
+│   └── image_1.npy
+```
+
+
 ## License
 This project licensed under the MIT License - see the [LICENSE](LICENSE) file for more details.
 
 
-# References
+## References
 1. [Optimized U-Net for Brain Tumor Segmentation](https://arxiv.org/abs/2110.03352)
 2. [Optimized High Resolution 3D Dense-U-Net Network for Brain and Spine Segmentation](https://www.mdpi.com/2076-3417/9/3/404)
 3. [A novel fully automated MRI-based deep-learning method for classification of IDH mutation status in brain gliomas](https://pubmed.ncbi.nlm.nih.gov/31637430/)
