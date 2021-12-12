@@ -16,6 +16,9 @@ from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.utils import to_categorical
 
 
+# Initializing cli argument parser
+parser = argparse.ArgumentParser()
+
 # Defining MinMaxScaler
 mm_scaler = MinMaxScaler()
 
