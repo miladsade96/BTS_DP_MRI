@@ -21,6 +21,8 @@ parser = argparse.ArgumentParser()
 # Adding arguments
 parser.add_argument("-d", "--dataset", help="Path to .nii files directory")
 parser.add_argument("-v", "--verbose", action="store_true", help="Level of verbosity")
+# Parsing the arguments
+args = parser.parse_args()
 
 # Defining MinMaxScaler
 mm_scaler = MinMaxScaler()
