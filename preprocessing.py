@@ -43,29 +43,29 @@ for item in range(len(t1_list)):    # Creating new specific directory for any sa
 os.chdir(os.path.dirname(os.path.abspath(__file__)))    # Navigating back to project root directory
 
 
-for img in range(len(t1_list)):
+for i, _ in enumerate(t1_list):
     if args.verbose:
-        print("Now preparing image and masks number: ", img)
+        print("Now preparing image and masks number: ", i)
 
-    temp_image_t1 = nib.load(os.path.abspath(t1_list[img])).get_fdata()
+    temp_image_t1 = nib.load(os.path.abspath(t1_list[i])).get_fdata()
     temp_image_t1 = mm_scaler.fit_transform(temp_image_t1.reshape(-1, temp_image_t1.shape[-1])).reshape(
         temp_image_t1.shape)
     if args.verbose:
-        print(f"T1 for sample number {img} Loaded and rescaled.")
-    temp_image_MD = nib.load(os.path.abspath(MD_list[img])).get_fdata()
+        print(f"T1 for sample number {i} Loaded and rescaled.")
+    temp_image_MD = nib.load(os.path.abspath(MD_list[i])).get_fdata()
     temp_image_MD = mm_scaler.fit_transform(temp_image_MD.reshape(-1, temp_image_MD.shape[-1])).reshape(
         temp_image_MD.shape)
     if args.verbose:
-        print(f"MD for sample number {img} Loaded and rescaled.")
-    temp_image_rCBV = nib.load(os.path.abspath(rCBV_list[img])).get_fdata()
+        print(f"MD for sample number {i} Loaded and rescaled.")
+    temp_image_rCBV = nib.load(os.path.abspath(rCBV_list[i])).get_fdata()
     temp_image_rCBV = mm_scaler.fit_transform(temp_image_rCBV.reshape(-1, temp_image_rCBV.shape[-1])).reshape(
         temp_image_rCBV.shape)
     if args.verbose:
-        print(f"rCBV for sample number {img} Loaded and rescaled.")
-    temp_Ann = nib.load(os.path.abspath(Ann_list[img])).get_fdata()
+        print(f"rCBV for sample number {i} Loaded and rescaled.")
+    temp_Ann = nib.load(os.path.abspath(Ann_list[i])).get_fdata()
     temp_Ann = temp_Ann.astype(np.uint8)
     if args.verbose:
-        print(f"Ann for sample number {img} Loaded and converted to uint8.")
+        print(f"Ann for sample number {i} Loaded and converted to uint8.")
     temp_combined_images = np.stack([temp_image_t1, temp_image_MD, temp_image_rCBV], axis=3)
     if args.verbose:
         print(f"T1, MD and rCBV volumes combined as a single MegaVolume.")
@@ -75,18 +75,18 @@ for img in range(len(t1_list)):
 
     temp_Ann = to_categorical(temp_Ann, num_classes=4)
 
-    if os.path.isfile(f"{output}/{img}/image_" + str(img) + ".npy"):
+    if os.path.isfile(f"{output}/{i}/image_" + str(i) + ".npy"):
         if args.verbose:
             print(f"Image file already exists.")
     else:
-        np.save(f"{output}/{img}/image_" + str(img) + ".npy", temp_combined_images)
+        np.save(f"{output}/{i}/image_" + str(i) + ".npy", temp_combined_images)
         if args.verbose:
-            print(f"Number {img} image .npy files saved successfully.")
+            print(f"Number {i} image .npy files saved successfully.")
 
-    if os.path.isfile(f"{output}/{img}/ann_" + str(img) + ".npy"):
+    if os.path.isfile(f"{output}/{i}/ann_" + str(i) + ".npy"):
         if args.verbose:
             print(f"Annotation file already exists.")
     else:
-        np.save(f"{output}/{img}/ann_" + str(img) + ".npy", temp_Ann)
+        np.save(f"{output}/{i}/ann_" + str(i) + ".npy", temp_Ann)
         if args.verbose:
-            print(f"Number {img} annotation .npy files saved successfully.")
+            print(f"Number {i} annotation .npy files saved successfully.")
