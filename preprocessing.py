@@ -9,6 +9,7 @@
 
 import os
 import glob
+import argparse
 import numpy as np
 import nibabel as nib
 from sklearn.preprocessing import MinMaxScaler
