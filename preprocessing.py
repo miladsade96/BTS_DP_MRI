@@ -11,7 +11,6 @@ import os
 import glob
 import numpy as np
 import nibabel as nib
-import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.utils import to_categorical
 
