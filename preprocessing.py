@@ -69,7 +69,6 @@ for i, _ in enumerate(t1_list):
     temp_combined_images = np.stack([temp_image_t1, temp_image_MD, temp_image_rCBV], axis=3)
     if args.verbose:
         print(f"T1, MD and rCBV volumes combined as a single MegaVolume.")
-    val, counts = np.unique(temp_Ann, return_counts=True)
 
     output = os.path.abspath("dataset/npy_files/")
 
