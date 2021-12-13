@@ -7,7 +7,7 @@
 import os
 import glob
 import numpy as np
-from typing import List, Tuple
+from typing import List, Tuple, Any, Generator
 
 
 def _load_images(img_list: List) -> Tuple:
@@ -42,13 +42,13 @@ def _load_annotations(ann_list: List) -> Tuple:
     return tuple(annotations)
 
 
-def image_generator(path: str, batch_size: int) -> Tuple:
+def image_generator(path: str, batch_size: int) -> Generator[Tuple[Any]]:
     """
     This function gets .npy files path that are produced from preprocessing step and
     yields images and annotations in batches
     :param path: String, Path to .npy files
     :param batch_size: Integer, Batch size
-    :return: Tuple, Loaded images and annotations in batch
+    :return: Generator, Loaded images and annotations in batch
     """
     path = os.path.abspath(path)
     images_list = sorted(glob.glob(f"{path}/*/image_*.npy"))
