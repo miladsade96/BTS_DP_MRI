@@ -40,3 +40,29 @@ def _load_annotations(ann_list: List) -> Tuple:
             annotations.append(npy_ann)
     annotations = np.array(annotations)
     return tuple(annotations)
+
+
+def image_generator(path: str, batch_size: int) -> Tuple:
+    """
+    This function gets .npy files path that are produced from preprocessing step and
+    yields images and annotations in batches
+    :param path: String, Path to .npy files
+    :param batch_size: Integer, Batch size
+    :return: Tuple, Loaded images and annotations in batch
+    """
+    path = os.path.abspath(path)
+    images_list = sorted(glob.glob(f"{path}/*/image_*.npy"))
+    annotations_list = sorted(glob.glob(f"{path}/*/ann_*.npy"))
+
+    length = len(images_list)
+
+    while True:
+        batch_start_point = 0
+        batch_end_point = batch_size
+        while batch_start_point < length:
+            limit = min(batch_end_point, length)
+            x = _load_images(images_list[batch_start_point:limit])
+            y = _load_annotations(annotations_list[batch_start_point:limit])
+            yield x, y
+            batch_start_point += batch_size
+            batch_end_point += batch_size
