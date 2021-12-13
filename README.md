@@ -38,7 +38,7 @@ Desired dataset structure:
 ```
 Do preprocessing on dataset:
 ```shell
-python --verbose --dataset <path to dataset directory>
+python preprocessing.py --verbose --dataset <path to dataset directory>
 ```
 This will create a new directory called *npy_files*, then creates specific folders for
 each sample we have in dataset and saves image.npy and ann.py files in these folders.
