@@ -1,6 +1,6 @@
 """
     Custom Image data Generator
-    That loads the .npy file from local directory in batches
+    That loads the .npy files from local directory in batches
     Author: Milad Sadeghi DM - EverLookNeverSee@GitHub
 """
 
@@ -26,33 +26,33 @@ def _load_images(img_list: List) -> Tuple:
     return tuple(images)
 
 
-def _load_annotations(ann_list: List) -> Tuple:
+def _load_masks(mask_list: List) -> Tuple:
     """
-    This private function loads the numpy array annotation files
+    This private function loads the numpy array mask files
     that are passed within input parameter and append them into a list
-    :param ann_list: List, Contains absolute paths to ann.npy files
-    :return: Tuple, Loaded annotations
+    :param mask_list: List, Contains absolute paths to mask.npy files
+    :return: Tuple, Loaded masks
     """
-    annotations = list()
-    for annotation in ann_list:
-        if annotation.split(".")[1] == "npy":
-            npy_ann = np.load(annotation)
-            annotations.append(npy_ann)
-    annotations = np.array(annotations)
-    return tuple(annotations)
+    masks = list()
+    for mask in mask_list:
+        if mask.split(".")[1] == "npy":
+            npy_mask = np.load(mask)
+            masks.append(npy_mask)
+    masks = np.array(masks)
+    return tuple(masks)
 
 
-def image_generator(path: str, batch_size: int) -> Generator[Tuple[Any]]:
+def image_generator(path: str, batch_size: int) -> Generator:
     """
     This function gets .npy files path that are produced from preprocessing step and
-    yields images and annotations in batches
+    yields images and masks in batches
     :param path: String, Path to .npy files
     :param batch_size: Integer, Batch size
-    :return: Generator, Loaded images and annotations in batch
+    :return: Generator, Loaded images and masks in batch
     """
     path = os.path.abspath(path)
     images_list = sorted(glob.glob(f"{path}/*/image_*.npy"))
-    annotations_list = sorted(glob.glob(f"{path}/*/ann_*.npy"))
+    masks_list = sorted(glob.glob(f"{path}/*/mask_*.npy"))
 
     length = len(images_list)
 
@@ -62,7 +62,7 @@ def image_generator(path: str, batch_size: int) -> Generator[Tuple[Any]]:
         while batch_start_point < length:
             limit = min(batch_end_point, length)
             x = _load_images(images_list[batch_start_point:limit])
-            y = _load_annotations(annotations_list[batch_start_point:limit])
+            y = _load_masks(masks_list[batch_start_point:limit])
             yield x, y
             batch_start_point += batch_size
             batch_end_point += batch_size
