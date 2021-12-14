@@ -7,7 +7,7 @@
 import os
 import glob
 import numpy as np
-from typing import List, Tuple, Any, Generator
+from typing import List, Tuple, Generator
 
 
 def _load_images(img_list: List) -> Tuple:
