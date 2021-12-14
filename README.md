@@ -26,12 +26,12 @@ Desired dataset structure:
 .
 └── Train
     ├── 001
-    │   ├── 001-Ann.nii
+    │   ├── 001-mask.nii
     │   ├── 001-MD.nii
     │   ├── 001-rCBV.nii
     │   └── 001-T1.nii
     ├── 002
-    │   ├── 002-Ann.nii
+    │   ├── 002-mask.nii
     │   ├── 002-MD.nii
     │   ├── 002-rCBV.nii
     │   └── 002-T1.nii
@@ -41,14 +41,14 @@ Do preprocessing on dataset:
 python preprocessing.py --verbose --dataset <path to dataset directory>
 ```
 This will create a new directory called *npy_files*, then creates specific folders for
-each sample we have in dataset and saves image.npy and ann.py files in these folders.
+each sample we have in dataset and saves *image.npy* and *mask.py* files in these folders.
 ```
 npy_files/
 ├── 0
-│   ├── ann_0.npy
+│   ├── mask_0.npy
 │   └── image_0.npy
 ├── 1
-│   ├── ann_1.npy
+│   ├── mask_1.npy
 │   └── image_1.npy
 ```
 
