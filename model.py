@@ -70,3 +70,38 @@ def _build_decoder_block(pl: Tensor, sc: Tensor, n_filters: int, drop_rate: floa
     do = Dropout(rate=drop_rate)(c_1)
     c_2 = Conv3D(filters=n_filters, kernel_size=k_size, activation=af, kernel_initializer=ki, padding="same")(do)
     return c_2
+
+
+def build_unet_model(img_height: int, img_width: int, img_depth: int, img_channels: int, num_classes: int):
+    """
+    U-Net model builder
+    :param img_height: Integer, Input image height
+    :param img_width: Integer, input image width
+    :param img_depth: Integer, Input image depth
+    :param img_channels: Integer, Input image channels
+    :param num_classes: Integer, Number of classes in output layer
+    :return: Model
+    """
+    # Defining model input layer
+    in_layer = Input(shape=(img_height, img_width, img_depth, img_channels))
+
+    # Encoder path downsampling blocks
+    out_1, sc_1 = _build_encoder_block(pl=in_layer, n_filters=16)
+    out_2, sc_2 = _build_encoder_block(pl=out_1, n_filters=32)
+    out_3, sc_3 = _build_encoder_block(pl=out_2, n_filters=64)
+    out_4, sc_4 = _build_encoder_block(pl=out_3, n_filters=128)
+    # Bridge block
+    bb = _build_bridge_block(pl=out_4)
+
+    # Decoder path blocks
+    db_1 = _build_decoder_block(pl=bb, sc=sc_4, n_filters=128, drop_rate=0.2)
+    db_2 = _build_decoder_block(pl=db_1, sc=sc_3, n_filters=64, drop_rate=0.2)
+    db_3 = _build_decoder_block(pl=db_2, sc=sc_2, n_filters=32, drop_rate=0.1)
+    db_4 = _build_decoder_block(pl=db_3, sc=sc_1, n_filters=16, drop_rate=0.1)
+
+    # Defining model output layer
+    out_layer = Conv3D(filters=num_classes, kernel_size=(1, 1, 1), activation=softmax)(db_4)
+
+    final_model = Model(inputs=[in_layer], outputs=[out_layer], name="Standard 3D U-Net")
+    final_model.summary()
+    return final_model
