@@ -132,3 +132,4 @@ dmypy.json
 dataset
 *.nii
 /dataset/Train/
+*.hdf5
