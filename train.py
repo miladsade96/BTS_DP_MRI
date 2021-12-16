@@ -24,3 +24,13 @@ metrics = ["accuracy", IOUScore(threshold=0.5)]
 
 # Building the model
 model = build_unet_model(128, 128, 16, 3, 4)
+
+# Compiling the model
+model.compile(optimizer=Adam(learning_rate=0.0001), loss=total_loss, metrics=metrics)
+# Setting training process
+history = model.fit(
+    train_data_generator,
+    steps_per_epoch=34//2,
+    epochs=10,
+    verbose=1,
+)
