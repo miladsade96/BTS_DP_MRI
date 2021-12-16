@@ -21,3 +21,6 @@ total_loss = dice_loss + (1 * focal_loss)
 
 # Setting accuracy and IntersectionOverUnion as metrics
 metrics = ["accuracy", IOUScore(threshold=0.5)]
+
+# Building the model
+model = build_unet_model(128, 128, 16, 3, 4)
