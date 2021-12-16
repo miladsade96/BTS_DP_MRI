@@ -102,6 +102,6 @@ def build_unet_model(img_height: int, img_width: int, img_depth: int, img_channe
     # Defining model output layer
     out_layer = Conv3D(filters=num_classes, kernel_size=(1, 1, 1), activation=softmax)(db_4)
 
-    final_model = Model(inputs=[in_layer], outputs=[out_layer], name="Standard 3D U-Net")
+    final_model = Model(inputs=[in_layer], outputs=[out_layer])
     final_model.summary()
     return final_model
