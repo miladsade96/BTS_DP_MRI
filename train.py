@@ -4,6 +4,7 @@
 """
 
 
+import matplotlib.pyplot as plt
 from model import build_unet_model
 from tensorflow.keras.optimizers import Adam
 from image_data_generator import image_generator
@@ -37,3 +38,20 @@ history = model.fit(
 
 # Saving the trained model
 model.save(filepath="./BTS_DP_MRI.hdf5", overwrite=True)
+
+# Plotting model history
+loss = history.history['loss']
+epochs = range(1, len(loss) + 1)
+plt.plot(epochs, loss, 'y', label='Training loss')
+plt.title('Training loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+plt.show()
+acc = history.history['accuracy']
+plt.plot(epochs, acc, 'y', label='Training accuracy')
+plt.title('Training accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy')
+plt.legend()
+plt.show()
