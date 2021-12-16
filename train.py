@@ -9,3 +9,12 @@ from tensorflow.keras.optimizers import Adam
 from image_data_generator import image_generator
 from segmentation_models_3D.metrics import IOUScore
 from segmentation_models_3D.losses import DiceLoss, CategoricalFocalLoss
+
+
+# Defining image data generator
+train_data_generator = image_generator("dataset/npy_files", batch_size=2)
+
+dice_loss = DiceLoss()
+focal_loss = CategoricalFocalLoss()
+# Combining loss functions in order to create better total loss function
+total_loss = dice_loss + (1 * focal_loss)
