@@ -18,3 +18,6 @@ dice_loss = DiceLoss()
 focal_loss = CategoricalFocalLoss()
 # Combining loss functions in order to create better total loss function
 total_loss = dice_loss + (1 * focal_loss)
+
+# Setting accuracy and IntersectionOverUnion as metrics
+metrics = ["accuracy", IOUScore(threshold=0.5)]
