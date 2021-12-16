@@ -7,15 +7,15 @@
 import os
 import glob
 import numpy as np
-from typing import List, Tuple, Generator
+from typing import List, Generator
 
 
-def _load_images(img_list: List) -> Tuple:
+def _load_images(img_list: List) -> np.ndarray:
     """
     This private function loads the numpy array image files
     that are passed within input parameter and append them into a list
     :param img_list: List, Contains absolute paths to image.npy files
-    :return: Tuple, Loaded images
+    :return: N-dimensional array, Loaded images
     """
     images = list()
     for image in img_list:
@@ -23,15 +23,15 @@ def _load_images(img_list: List) -> Tuple:
             npy_image = np.load(image)
             images.append(npy_image)
     images = np.array(images)
-    return tuple(images)
+    return images
 
 
-def _load_masks(mask_list: List) -> Tuple:
+def _load_masks(mask_list: List) -> np.ndarray:
     """
     This private function loads the numpy array mask files
     that are passed within input parameter and append them into a list
     :param mask_list: List, Contains absolute paths to mask.npy files
-    :return: Tuple, Loaded masks
+    :return: N-dimensional array, Loaded masks
     """
     masks = list()
     for mask in mask_list:
@@ -39,7 +39,7 @@ def _load_masks(mask_list: List) -> Tuple:
             npy_mask = np.load(mask)
             masks.append(npy_mask)
     masks = np.array(masks)
-    return tuple(masks)
+    return masks
 
 
 def image_generator(path: str, batch_size: int) -> Generator:
