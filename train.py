@@ -34,3 +34,6 @@ history = model.fit(
     epochs=10,
     verbose=1,
 )
+
+# Saving the trained model
+model.save(filepath="./BTS_DP_MRI.hdf5", overwrite=True)
