@@ -4,3 +4,5 @@ matplotlib>=3.5.0
 numpy>=1.21.4
 nibabel>=3.2.1
 scikit-learn>=1.0.1
+segmentation_models>=1.0.1
+segmentation_models_3D>=1.0.2
