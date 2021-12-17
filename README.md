@@ -51,6 +51,11 @@ npy_files/
 │   ├── mask_1.npy
 │   └── image_1.npy
 ```
+**Training the model:**
+```shell
+python train.py --verbose --dataset <path to npy_files> --learning_rate 0.0001 --batch_size 2 --epochs 100 --save ./
+```
+After completing training process, command above will save trained model as a *.hdf5* file and display training process history.
 
 
 ## License
