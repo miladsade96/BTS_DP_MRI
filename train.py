@@ -44,7 +44,7 @@ model = build_unet_model(128, 128, 16, 3, 4)
 
 # Defining callback objects
 tensorboard_callback = TensorBoard(log_dir="./tb_logs", histogram_freq=1, write_graph=True,
-                                   write_images=False, update_freq="epoch")
+                                   write_images=True, update_freq="epoch")
 
 # Compiling the model
 model.compile(optimizer=Adam(learning_rate=args.learning_rate), loss=total_loss, metrics=metrics)
