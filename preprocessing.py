@@ -79,21 +79,27 @@ for i, _ in enumerate(t1_list):
         print(f"T1, MD and rCBV volumes combined as a single MegaVolume.")
 
     output = os.path.abspath("dataset/npy_files/")
+    val, counts = np.unique(temp_mask, return_counts=True)
 
-    temp_mask = to_categorical(temp_mask, num_classes=4)
+    if (1 - (counts[0] / counts.sum())) > 0.05:  # At least 5% useful volume with labels that are not 0
+        print("Save Me")
+        temp_mask = to_categorical(temp_mask, num_classes=4)
 
-    if os.path.isfile(f"{output}/{i}/image_" + str(i) + ".npy"):
-        if args.verbose:
-            print(f"Image file already exists.")
+        if os.path.isfile(f"{output}/{i}/image_" + str(i) + ".npy"):
+            if args.verbose:
+                print(f"Image file already exists.")
+        else:
+            np.save(f"{output}/{i}/image_" + str(i) + ".npy", temp_combined_images)
+            if args.verbose:
+                print(f"Number {i} image .npy files saved successfully.")
+
+        if os.path.isfile(f"{output}/{i}/mask_" + str(i) + ".npy"):
+            if args.verbose:
+                print(f"Mask file already exists.")
+        else:
+            np.save(f"{output}/{i}/mask_" + str(i) + ".npy", temp_mask)
+            if args.verbose:
+                print(f"Number {i} mask .npy files saved successfully.")
+
     else:
-        np.save(f"{output}/{i}/image_" + str(i) + ".npy", temp_combined_images)
-        if args.verbose:
-            print(f"Number {i} image .npy files saved successfully.")
-
-    if os.path.isfile(f"{output}/{i}/mask_" + str(i) + ".npy"):
-        if args.verbose:
-            print(f"Mask file already exists.")
-    else:
-        np.save(f"{output}/{i}/mask_" + str(i) + ".npy", temp_mask)
-        if args.verbose:
-            print(f"Number {i} mask .npy files saved successfully.")
+        print(f"Number {i} is useless.")
