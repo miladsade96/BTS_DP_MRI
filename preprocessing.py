@@ -103,3 +103,8 @@ for i, _ in enumerate(t1_list):
 
     else:
         print(f"Number {i} is useless.")
+
+# Remove empty folders in npy_files
+for dir_path, dir_names, file_names in os.walk("dataset/npy_files"):
+    if not dir_names and not file_names:
+        os.rmdir(dir_path)
