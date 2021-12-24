@@ -34,7 +34,31 @@ args = parser.parse_args()
 # Defining image data generator
 train_data_generator = image_generator(path=args.dataset, batch_size=args.batch_size)
 
-dice_loss = DiceLoss()
+# Calculating class weights
+columns = ["0", "1", "2", "3"]
+df = pd.DataFrame(columns=columns)
+mask_list = sorted(glob.glob(f"{args.dataset}/*/mask_*.npy"))
+for img in range(len(mask_list)):
+    print(img)
+    tmp_image = np.load(mask_list[img])
+    tmp_image = np.argmax(tmp_image, axis=3)
+    val, counts = np.unique(tmp_image, return_counts=True)
+    zipped = zip(columns, counts)
+    counts_dict = dict(zipped)
+    df = df.append(counts_dict, ignore_index=True)
+
+label_0 = df['0'].sum()
+label_1 = df['1'].sum()
+label_2 = df['1'].sum()
+label_3 = df['3'].sum()
+total_labels = label_0 + label_1 + label_2 + label_3
+n_classes = 4
+wt0 = round((total_labels / (n_classes * label_0)), 2)
+wt1 = round((total_labels / (n_classes * label_1)), 2)
+wt2 = round((total_labels / (n_classes * label_2)), 2)
+wt3 = round((total_labels / (n_classes * label_3)), 2)
+
+dice_loss = DiceLoss(class_weights=np.array([wt0, wt1, wt2, wt3]))
 focal_loss = CategoricalFocalLoss()
 # Combining loss functions in order to create better total loss function
 total_loss = dice_loss + (1 * focal_loss)
