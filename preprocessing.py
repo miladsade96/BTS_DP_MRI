@@ -78,6 +78,10 @@ for i, _ in enumerate(t1_list):
     if args.verbose:
         print(f"T1, MD and rCBV volumes combined as a single MegaVolume.")
 
+    # Cropping combined image and mask (64x64x16)
+    temp_combined_images = temp_combined_images[31:95, 31:95, :]
+    temp_mask = temp_mask[31:95, 31:95, :]
+
     output = os.path.abspath("dataset/npy_files/")
     val, counts = np.unique(temp_mask, return_counts=True)
 
