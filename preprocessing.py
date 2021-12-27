@@ -81,7 +81,7 @@ for i, _ in enumerate(t1_list):
     output = os.path.abspath("dataset/npy_files/")
     val, counts = np.unique(temp_mask, return_counts=True)
 
-    if (1 - (counts[0] / counts.sum())) > 0.05:  # At least 5% useful volume with labels that are not 0
+    if (1 - (counts[0] / counts.sum())) > 0.01:  # At least 1% useful volume with labels that are not 0
         print("Save Me")
         temp_mask = to_categorical(temp_mask, num_classes=4)
 
