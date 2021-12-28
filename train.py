@@ -68,7 +68,7 @@ total_loss = dice_loss + (1 * focal_loss)
 metrics = ["accuracy", IOUScore(threshold=0.5)]
 
 # Building the model
-model = build_unet_model(128, 128, 16, 3, 4)
+model = build_unet_model(64, 64, 16, 3, 4)
 
 # Defining callback objects
 tensorboard_callback = TensorBoard(log_dir="./tb_logs", histogram_freq=1, write_graph=True,
