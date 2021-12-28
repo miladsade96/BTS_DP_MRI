@@ -32,7 +32,8 @@ parser.add_argument("-s", "--save", help="Path to save trained model", default=o
 args = parser.parse_args()
 
 # Defining image data generator
-train_data_generator = image_generator(path=args.dataset, batch_size=args.batch_size)
+train_data_generator = image_generator(path=f"{args.dataset}/Train/", batch_size=args.batch_size)
+valid_data_generator = image_generator(path=f"{args.dataset}/Valid/", batch_size=args.batch_size)
 
 # Calculating class weights
 columns = ["0", "1", "2", "3"]
