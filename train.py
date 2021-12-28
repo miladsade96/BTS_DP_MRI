@@ -79,7 +79,10 @@ model.compile(optimizer=Adam(learning_rate=args.learning_rate), loss=total_loss,
 # Setting training process
 history = model.fit(
     train_data_generator,
-    steps_per_epoch=34//2,
+    steps_per_epoch=26//2,
+    validation_data=valid_data_generator,
+    validation_steps=7//2,
+    shuffle=True,
     epochs=args.epochs,
     verbose=args.verbose,
     callbacks=[tensorboard_callback]
