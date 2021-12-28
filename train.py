@@ -38,7 +38,7 @@ valid_data_generator = image_generator(path=f"{args.dataset}/Valid/", batch_size
 # Calculating class weights
 columns = ["0", "1", "2", "3"]
 df = pd.DataFrame(columns=columns)
-mask_list = sorted(glob.glob(f"{args.dataset}/*/mask_*.npy"))
+mask_list = sorted(glob.glob(f"{args.dataset}/Train/*/mask_*.npy"))
 for img in range(len(mask_list)):
     print(img)
     tmp_image = np.load(mask_list[img])
