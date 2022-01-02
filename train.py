@@ -31,84 +31,95 @@ parser.add_argument("-s", "--save", help="Path to save trained model", default=o
 # Parsing the arguments
 args = parser.parse_args()
 
-# Defining image data generator
-train_data_generator = image_generator(path=f"{args.dataset}/Train/", batch_size=args.batch_size)
-valid_data_generator = image_generator(path=f"{args.dataset}/Valid/", batch_size=args.batch_size)
 
-# Calculating class weights
-columns = ["0", "1", "2", "3"]
-df = pd.DataFrame(columns=columns)
-mask_list = sorted(glob.glob(f"{args.dataset}/Train/*/mask_*.npy"))
-for img in range(len(mask_list)):
-    print(img)
-    tmp_image = np.load(mask_list[img])
-    tmp_image = np.argmax(tmp_image, axis=3)
-    val, counts = np.unique(tmp_image, return_counts=True)
-    zipped = zip(columns, counts)
-    counts_dict = dict(zipped)
-    df = df.append(counts_dict, ignore_index=True)
+kf = KFold(n_splits=5)  # Configuring kfold cross validation
+fold_counter = 1    # Initializing fold counter
 
-label_0 = df['0'].sum()
-label_1 = df['1'].sum()
-label_2 = df['1'].sum()
-label_3 = df['3'].sum()
-total_labels = label_0 + label_1 + label_2 + label_3
-n_classes = 4
-wt0 = round((total_labels / (n_classes * label_0)), 2)
-wt1 = round((total_labels / (n_classes * label_1)), 2)
-wt2 = round((total_labels / (n_classes * label_2)), 2)
-wt3 = round((total_labels / (n_classes * label_3)), 2)
+for train, valid in kf.split(range(33)):    # 33 is number of samples
+    print(f"Fold Number {fold_counter}")
+    train_data_generator = image_generator(path=args.dataset, indexes=train, batch_size=2)
+    valid_data_generator = image_generator(path=args.dataset, indexes=valid, batch_size=2)
 
-dice_loss = DiceLoss(class_weights=np.array([wt0, wt1, wt2, wt3]))
-focal_loss = CategoricalFocalLoss()
-# Combining loss functions in order to create better total loss function
-total_loss = dice_loss + (1 * focal_loss)
+    # Calculating class weights
+    columns = ["0", "1", "2", "3"]
+    df = pd.DataFrame(columns=columns)
+    mask_list = list()
+    for index in train:
+        if index != 13:     # except number 13
+            mask_list.append(f"{args.dataset}/{index}/mask_{index}.npy")
+    for img in range(len(mask_list)):
+        tmp_image = np.load(mask_list[img])
+        tmp_image = np.argmax(tmp_image, axis=3)
+        val, counts = np.unique(tmp_image, return_counts=True)
+        zipped = zip(columns, counts)
+        counts_dict = dict(zipped)
+        df = df.append(counts_dict, ignore_index=True)
 
-# Setting accuracy and IntersectionOverUnion as metrics
-metrics = ["accuracy", IOUScore(threshold=0.5)]
+    label_0 = df['0'].sum()
+    label_1 = df['1'].sum()
+    label_2 = df['1'].sum()
+    label_3 = df['3'].sum()
+    total_labels = label_0 + label_1 + label_2 + label_3
+    n_classes = 4
+    wt0 = round((total_labels / (n_classes * label_0)), 2)
+    wt1 = round((total_labels / (n_classes * label_1)), 2)
+    wt2 = round((total_labels / (n_classes * label_2)), 2)
+    wt3 = round((total_labels / (n_classes * label_3)), 2)
 
-# Building the model
-model = build_unet_model(64, 64, 16, 3, 4)
+    dice_loss = DiceLoss(class_weights=np.array([wt0, wt1, wt2, wt3]))
+    focal_loss = CategoricalFocalLoss()
+    # Combining loss functions in order to create better total loss function
+    total_loss = dice_loss + (1 * focal_loss)
 
-# Defining callback objects
-tensorboard_callback = TensorBoard(log_dir="./tb_logs", histogram_freq=1, write_graph=True,
-                                   write_images=True, update_freq="epoch")
+    # Setting accuracy and IntersectionOverUnion as metrics
+    metrics = ["accuracy", IOUScore(threshold=0.5)]
 
-# Compiling the model
-model.compile(optimizer=Adam(learning_rate=args.learning_rate), loss=total_loss, metrics=metrics)
-# Setting training process
-history = model.fit(
-    train_data_generator,
-    steps_per_epoch=26//2,
-    validation_data=valid_data_generator,
-    validation_steps=7//2,
-    shuffle=True,
-    epochs=args.epochs,
-    verbose=args.verbose,
-    callbacks=[tensorboard_callback]
-)
+    # Building the model
+    model = build_unet_model(64, 64, 16, 3, 4)
 
-# Saving the trained model
-model.save(filepath=f"{args.save}/BTS_DP_MRI.hdf5", overwrite=True)
+    # Defining callback objects
+    tensorboard_callback = TensorBoard(log_dir="./tb_logs", histogram_freq=1, write_graph=True,
+                                       write_images=True, update_freq="epoch")
 
-if args.verbose:
-    # Plotting model history
-    loss = history.history['loss']
-    val_loss = history.history['val_loss']
-    epochs = range(1, len(loss) + 1)
-    plt.plot(epochs, loss, 'y', label='Training loss')
-    plt.plot(epochs, val_loss, 'r', label='Validation loss')
-    plt.title('Training and validation loss')
-    plt.xlabel('Epochs')
-    plt.ylabel('Loss')
-    plt.legend()
-    plt.show()
-    acc = history.history['accuracy']
-    val_acc = history.history['val_accuracy']
-    plt.plot(epochs, acc, 'y', label='Training accuracy')
-    plt.plot(epochs, val_acc, 'r', label='Validation accuracy')
-    plt.title('Training and validation accuracy')
-    plt.xlabel('Epochs')
-    plt.ylabel('Accuracy')
-    plt.legend()
-    plt.show()
+    # Compiling the model
+    model.compile(optimizer=Adam(learning_rate=args.learning_rate), loss=total_loss, metrics=metrics)
+    n_training_samples = len(train)
+    n_validating_samples = len(valid)
+    # Setting training process
+    history = model.fit(
+        train_data_generator,
+        steps_per_epoch=n_training_samples//2,
+        validation_data=valid_data_generator,
+        validation_steps=n_validating_samples//2,
+        shuffle=True,
+        epochs=args.epochs,
+        verbose=args.verbose,
+        callbacks=[tensorboard_callback]
+    )
+
+    # Saving the trained model
+    model.save(filepath=f"{args.save}/BTS_DP_MRI_fold_0{fold_counter}.hdf5", overwrite=True)
+
+    fold_counter += 1
+
+    if args.verbose:
+        # Plotting model history
+        loss = history.history['loss']
+        val_loss = history.history['val_loss']
+        epochs = range(1, len(loss) + 1)
+        plt.plot(epochs, loss, 'y', label='Training loss')
+        plt.plot(epochs, val_loss, 'r', label='Validation loss')
+        plt.title('Training and validation loss')
+        plt.xlabel('Epochs')
+        plt.ylabel('Loss')
+        plt.legend()
+        plt.show()
+        acc = history.history['accuracy']
+        val_acc = history.history['val_accuracy']
+        plt.plot(epochs, acc, 'y', label='Training accuracy')
+        plt.plot(epochs, val_acc, 'r', label='Validation accuracy')
+        plt.title('Training and validation accuracy')
+        plt.xlabel('Epochs')
+        plt.ylabel('Accuracy')
+        plt.legend()
+        plt.show()
