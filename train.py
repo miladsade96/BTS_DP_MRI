@@ -5,12 +5,12 @@
 
 
 import os
-import glob
 import argparse
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from model import build_unet_model
+from sklearn.model_selection import KFold
 from tensorflow.keras.optimizers import Adam
 from image_data_generator import image_generator
 from tensorflow.keras.callbacks import TensorBoard
