@@ -5,7 +5,6 @@
 """
 
 import os
-import glob
 import numpy as np
 from typing import List, Generator
 
