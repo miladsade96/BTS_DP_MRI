@@ -23,7 +23,7 @@ parser = argparse.ArgumentParser()
 # Adding arguments
 parser.add_argument("-d", "--dataset", help="Path to .npy files directory")
 parser.add_argument("-v", "--verbose", action="store_true", help="Level of verbosity")
-parser.add_argument("-l", "--learning_rate", help="Learning rate", type=float, default=0.0001)
+parser.add_argument("-l", "--learning_rate", help="Learning rate", type=float, default=0.001)
 parser.add_argument("-b", "--batch_size", help="Batch size", type=int, default=2)
 parser.add_argument("-e", "--epochs", help="Number of epochs", type=int, default=100)
 parser.add_argument("-s", "--save", help="Path to save trained model", default=os.getcwd())
