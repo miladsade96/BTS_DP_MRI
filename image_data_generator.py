@@ -41,17 +41,24 @@ def _load_masks(mask_list: List) -> np.ndarray:
     return masks
 
 
-def image_generator(path: str, batch_size: int) -> Generator:
+def image_generator(path: str, indexes: List, batch_size: int) -> Generator:
     """
     This function gets .npy files path that are produced from preprocessing step and
     yields images and masks in batches
     :param path: String, Path to .npy files
+    :param indexes: List, List of indexes
     :param batch_size: Integer, Batch size
     :return: Generator, Loaded images and masks in batch
     """
     path = os.path.abspath(path)
-    images_list = sorted(glob.glob(f"{path}/*/image_*.npy"))
-    masks_list = sorted(glob.glob(f"{path}/*/mask_*.npy"))
+    # Defining global lists
+    images_list = list()
+    masks_list = list()
+
+    for index in indexes:
+        if index != 13:     # Except number 13
+            images_list.append(f"{path}/{index}/image_{index}.npy")
+            masks_list.append(f"{path}/{index}/mask_{index}.npy")
 
     length = len(images_list)
 
