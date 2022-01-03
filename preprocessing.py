@@ -79,7 +79,12 @@ for i, _ in enumerate(t1_list):
         print(f"T1 for sample number {i} Loaded and rescaled.")
     temp_image_t1 = np.append(temp_image_t1, zeros, axis=2)
     if args.verbose:
-        print(f"T1 for sample number {i} Loaded and rescaled.")
+        print(f"Zeros added to T1 file of sample number {i}")
+    temp_image_t1 = temp_image_t1[x:x + 64, y:y + 64, :]
+    if args.verbose:
+        print(f"T1 for sample number {i} cropped")
+        print(f"Cropped T1 shape: {temp_image_t1.shape}")
+
     temp_image_MD = nib.load(os.path.abspath(MD_list[i])).get_fdata()
     temp_image_MD = mm_scaler.fit_transform(temp_image_MD.reshape(-1, temp_image_MD.shape[-1])).reshape(
         temp_image_MD.shape)
