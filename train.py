@@ -32,10 +32,10 @@ parser.add_argument("-s", "--save", help="Path to save trained model", default=o
 args = parser.parse_args()
 
 
-kf = KFold(n_splits=5)  # Configuring kfold cross validation
+kf = KFold(n_splits=8)  # Configuring kfold cross validation
 fold_counter = 1    # Initializing fold counter
 
-for train, valid in kf.split(range(33)):    # 33 is number of samples
+for train, valid in kf.split(range(33)):    # 33 is the number of samples
     print(f"Fold Number {fold_counter}")
     train_data_generator = image_generator(path=args.dataset, indexes=train, batch_size=2)
     valid_data_generator = image_generator(path=args.dataset, indexes=valid, batch_size=2)
