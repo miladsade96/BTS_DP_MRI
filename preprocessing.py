@@ -101,14 +101,16 @@ for i, _ in enumerate(t1_list):
     temp_image_rCBV = nib.load(os.path.abspath(rCBV_list[i])).get_fdata()
     temp_image_rCBV = mm_scaler.fit_transform(temp_image_rCBV.reshape(-1, temp_image_rCBV.shape[-1])).reshape(
         temp_image_rCBV.shape)
-    temp_image_rCBV = np.append(temp_image_rCBV, zeros, axis=2)
     if args.verbose:
         print(f"rCBV for sample number {i} Loaded and rescaled.")
-    temp_mask = nib.load(os.path.abspath(mask_list[i])).get_fdata()
-    temp_mask = np.append(temp_mask, zeros, axis=2)
-    temp_mask = temp_mask.astype(np.uint8)
+    temp_image_rCBV = np.append(temp_image_rCBV, zeros, axis=2)
     if args.verbose:
-        print(f"Mask for sample number {i} Loaded and converted to uint8.")
+        print(f"Zeros added to rCBV file of sample number {i}")
+    temp_image_rCBV = temp_image_rCBV[x:x + 64, y:y + 64, :]
+    if args.verbose:
+        print(f"rCBV for sample number {i} cropped")
+        print(f"Cropped rCBV shape: {temp_image_rCBV.shape}")
+
     temp_combined_images = np.stack([temp_image_t1, temp_image_MD, temp_image_rCBV], axis=3)
     if args.verbose:
         print(f"T1, MD and rCBV volumes combined as a single MegaVolume.")
