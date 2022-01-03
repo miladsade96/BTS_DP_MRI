@@ -75,6 +75,8 @@ for i, _ in enumerate(t1_list):
     temp_image_t1 = nib.load(os.path.abspath(t1_list[i])).get_fdata()
     temp_image_t1 = mm_scaler.fit_transform(temp_image_t1.reshape(-1, temp_image_t1.shape[-1])).reshape(
         temp_image_t1.shape)
+    if args.verbose:
+        print(f"T1 for sample number {i} Loaded and rescaled.")
     temp_image_t1 = np.append(temp_image_t1, zeros, axis=2)
     if args.verbose:
         print(f"T1 for sample number {i} Loaded and rescaled.")
