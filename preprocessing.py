@@ -146,8 +146,9 @@ for i, _ in enumerate(t1_list):
                 print(f"Number {i} mask .npy files saved successfully.")
 
     else:
-        print(f"Number {i} is useless.")
+        print(f"Sample number {i} is useless.")
 
+    print("-*-" * 50)
 # Remove empty folders in npy_files
 for dir_path, dir_names, file_names in os.walk("dataset/npy_files"):
     if not dir_names and not file_names:
