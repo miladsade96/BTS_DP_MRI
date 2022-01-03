@@ -100,20 +100,31 @@ for train, valid in kf.split(range(33)):    # 33 is number of samples
     # Saving the trained model
     model.save(filepath=f"{args.save}/BTS_DP_MRI_fold_0{fold_counter}.hdf5", overwrite=True)
 
-    fold_counter += 1
-
     if args.verbose:
         # Plotting model history
-        loss = history.history['loss']
-        val_loss = history.history['val_loss']
+        loss = history.history["loss"]
+        val_loss = history.history["val_loss"]
         epochs = range(1, len(loss) + 1)
-        plt.plot(epochs, loss, 'y', label='Training loss')
-        plt.plot(epochs, val_loss, 'r', label='Validation loss')
-        plt.title('Training and validation loss')
-        plt.xlabel('Epochs')
-        plt.ylabel('Loss')
+        plt.plot(epochs, loss, "y", label="Training Loss")
+        plt.plot(epochs, val_loss, "r", label="Validation Loss")
+        plt.title("Training and validation loss")
+        plt.xlabel("Epochs")
+        plt.ylabel("Loss")
         plt.legend()
+        plt.savefig(fname=f"./tv_loss_0{fold_counter}.png", dpi=960)
         plt.show()
+
+        iou_score = history.history["iou_score"]
+        val_iou_score = history.history["val_iou_score"]
+        plt.plot(epochs, iou_score, 'y', label='Training IOU Score')
+        plt.plot(epochs, val_iou_score, 'r', label='Validation IOU Score')
+        plt.title('Training and validation IOU Score')
+        plt.xlabel('Epochs')
+        plt.ylabel('IOU Score')
+        plt.legend()
+        plt.savefig(fname=f"./tv_iou_score_0{fold_counter}.png", dpi=960)
+        plt.show()
+
         acc = history.history['accuracy']
         val_acc = history.history['val_accuracy']
         plt.plot(epochs, acc, 'y', label='Training accuracy')
@@ -122,4 +133,7 @@ for train, valid in kf.split(range(33)):    # 33 is number of samples
         plt.xlabel('Epochs')
         plt.ylabel('Accuracy')
         plt.legend()
+        plt.savefig(fname=f"./tv_acc_0{fold_counter}.png", dpi=960)
         plt.show()
+
+        fold_counter += 1
