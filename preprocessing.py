@@ -122,8 +122,11 @@ for i, _ in enumerate(t1_list):
     if args.verbose:
         print(f"Values and counts for sample number {i}: {val}, {counts}")
 
-    if (1 - (counts[0] / counts.sum())) > 0.01:  # At least 1% useful volume with labels that are not 0
-        print("Save Me")
+    percent = 1 - (counts[0] / counts.sum())
+    percent = int(round(percent, 2) * 100)
+    print(f"Percent for mask number{i}: {percent}%")
+    if percent > 0.01:  # At least 1% useful volume with labels that are not 0
+        print(f"Saving sample number {i}")
         temp_mask = to_categorical(temp_mask, num_classes=4)
 
         if os.path.isfile(f"{output}/{i}/image_" + str(i) + ".npy"):
