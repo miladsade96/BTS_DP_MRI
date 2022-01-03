@@ -42,6 +42,7 @@ for item in range(len(t1_list)):    # Creating new specific directory for any sa
         print(f"Directory number {item} created or already exists.")
 os.chdir(os.path.dirname(os.path.abspath(__file__)))    # Navigating back to project root directory
 
+print("-*-" * 50)
 
 for i, _ in enumerate(t1_list):
     # Adding six zero slices on axis 2 in order to feed .npy file into U-Net model
@@ -49,7 +50,7 @@ for i, _ in enumerate(t1_list):
     zeros = np.zeros((128, 128, 6))
 
     if args.verbose:
-        print(f"Now preparing image and masks number: {i}")
+        print(f"Preparing image and mask number: {i}")
 
     temp_mask = nib.load(os.path.abspath(mask_list[i])).get_fdata()
     if args.verbose:
