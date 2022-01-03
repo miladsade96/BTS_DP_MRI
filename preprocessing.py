@@ -49,7 +49,28 @@ for i, _ in enumerate(t1_list):
     zeros = np.zeros((128, 128, 6))
 
     if args.verbose:
-        print("Now preparing image and masks number: ", i)
+        print(f"Now preparing image and masks number: {i}")
+
+    temp_mask = nib.load(os.path.abspath(mask_list[i])).get_fdata()
+    if args.verbose:
+        print(f"Mask file for sample number {i} is loaded")
+    temp_mask = np.append(temp_mask, zeros, axis=2)
+    if args.verbose:
+        print(f"Zeros added to mask file of sample number {i}")
+    temp_mask = temp_mask.astype(np.uint8)
+    if args.verbose:
+        print(f"Mask for sample number {i} converted to uint8.")
+    # Efficient crop
+    flt = np.where(temp_mask[:, :, 4] != 0)  # flt --> filter
+    x, y = flt[0][0], flt[1][0]
+    x = min(x, 63)
+    y = min(y, 63)
+    if args.verbose:
+        print(f"Coordinates for sample number {i}: x: {x}, y: {y}")
+    temp_mask = temp_mask[x:x + 64, y:y + 64, :]
+    if args.verbose:
+        print(f"Mask for sample number {i} cropped")
+        print(f"mask shape: {temp_mask.shape}")
 
     temp_image_t1 = nib.load(os.path.abspath(t1_list[i])).get_fdata()
     temp_image_t1 = mm_scaler.fit_transform(temp_image_t1.reshape(-1, temp_image_t1.shape[-1])).reshape(
