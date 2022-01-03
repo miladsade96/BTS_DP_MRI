@@ -88,6 +88,8 @@ for i, _ in enumerate(t1_list):
     temp_image_MD = nib.load(os.path.abspath(MD_list[i])).get_fdata()
     temp_image_MD = mm_scaler.fit_transform(temp_image_MD.reshape(-1, temp_image_MD.shape[-1])).reshape(
         temp_image_MD.shape)
+    if args.verbose:
+        print(f"MD for sample number {i} Loaded and rescaled.")
     temp_image_MD = np.append(temp_image_MD, zeros, axis=2)
     if args.verbose:
         print(f"MD for sample number {i} Loaded and rescaled.")
