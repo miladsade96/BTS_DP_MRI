@@ -56,9 +56,8 @@ def image_generator(path: str, indexes: List, batch_size: int) -> Generator:
     masks_list = list()
 
     for index in indexes:
-        if index != 13:     # Except number 13
-            images_list.append(f"{path}/{index}/image_{index}.npy")
-            masks_list.append(f"{path}/{index}/mask_{index}.npy")
+        images_list.append(f"{path}/{index}/image_{index}.npy")
+        masks_list.append(f"{path}/{index}/mask_{index}.npy")
 
     length = len(images_list)
 
