@@ -1,5 +1,5 @@
 """
-    Loading trained model and make some predictions on unseen data
+    Loading trained model and make a prediction on unseen data
     @author: Milad Sadeghi DM - EverLookNeverSee@GitHub
 """
 
