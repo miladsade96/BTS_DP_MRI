@@ -72,10 +72,6 @@ for i, _ in enumerate(MD_list):
     temp_image_MD = np.append(temp_image_MD, zeros, axis=2)
     if args.verbose:
         print(f"Zeros added to MD file of sample number {i}")
-    temp_image_MD = temp_image_MD[x:x + 64, y:y + 64, :]
-    if args.verbose:
-        print(f"MD for sample number {i} cropped")
-        print(f"Cropped MD shape: {temp_image_t1.shape}")
 
     temp_image_rCBV = nib.load(os.path.abspath(rCBV_list[i])).get_fdata()
     temp_image_rCBV = mm_scaler.fit_transform(temp_image_rCBV.reshape(-1, temp_image_rCBV.shape[-1])).reshape(
