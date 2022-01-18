@@ -34,3 +34,20 @@ mask_argmax = np.argmax(mask, axis=3)   # Converting from categorical
 img_input = np.expand_dims(image, axis=0)   # Expanding image dimension
 prediction = model.predict(img_input)       # Making a prediction
 prediction_argmax = np.argmax(prediction, axis=4)[0, :, :, :]
+
+
+n_slice = args.slice    # slice number
+# Plotting prediction
+plt.figure(figsize=(12, 8))
+plt.subplot(231)
+plt.title('Test Image')
+plt.imshow(image[:, :, n_slice, 1], cmap='gray')
+plt.subplot(232)
+plt.title('Test Mask')
+plt.imshow(mask_argmax[:, :, n_slice])
+plt.subplot(233)
+plt.title('Prediction')
+plt.imshow(prediction_argmax[:, :, n_slice])
+plt.savefig(f"{args.save_plot}prediction.png")
+if args.verbose:
+    plt.show()
