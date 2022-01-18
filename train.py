@@ -72,7 +72,7 @@ for train, valid in kf.split(range(34)):    # 33 is the number of samples
     metrics = ["accuracy", IOUScore(threshold=0.5)]
 
     # Building the model
-    model = build_unet_model(64, 64, 16, 3, 4)
+    model = build_unet_model(64, 64, 16, 2, 3)
 
     # Defining callback objects
     tensorboard_callback = TensorBoard(log_dir="./tb_logs", histogram_freq=1, write_graph=True,
