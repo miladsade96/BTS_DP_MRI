@@ -35,7 +35,7 @@ mask_list = sorted(glob.glob(f"{args.dataset}/Train/*/mask*.nii"))
 
 PATH = os.path.abspath(f"{args.dataset}/")      # Getting absolute path
 os.chdir(PATH)  # Navigating to dataset
-for item in range(len(t1_list)):    # Creating new specific directory for any sample in dataset
+for item in range(len(MD_list)):    # Creating new specific directory for any sample in dataset
     os.makedirs(f"npy_files/{item}", exist_ok=True)
     if args.verbose:
         print(f"Directory number {item} created or already exists.")
@@ -43,7 +43,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))    # Navigating back to pro
 
 print("-*-" * 50)
 
-for i, _ in enumerate(t1_list):
+for i, _ in enumerate(MD_list):
     # Adding six zero slices on axis 2 in order to feed .npy file into U-Net model
     # image files shape: (128, 128, 16, 3) and mask files shape: (128, 128, 16, 4)
     zeros = np.zeros((128, 128, 6))
