@@ -22,3 +22,10 @@ parser.add_argument("-s", "--save_plot", help="Save Prediction plot", default=os
 parser.add_argument("--slice", help="Predicted mask lice number in order to plot", type=int, default=6)
 # Parsing the arguments
 args = parser.parse_args()
+
+# Loading the saved model
+model = load_model(filepath=args.model, compile=False)
+
+# Loading the image and mask
+image = np.load(file=args.image)
+mask = np.load(file=args.mask)
