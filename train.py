@@ -56,10 +56,9 @@ for train, valid in kf.split(range(34)):    # 33 is the number of samples
 
     label_0 = df['0'].sum()
     label_1 = df['1'].sum()
-    label_2 = df['1'].sum()
-    label_3 = df['3'].sum()
-    total_labels = label_0 + label_1 + label_2 + label_3
-    n_classes = 4
+    label_2 = df['2'].sum()
+    total_labels = label_0 + label_1 + label_2
+    n_classes = 3
     wt0 = round((total_labels / (n_classes * label_0)), 2)
     wt1 = round((total_labels / (n_classes * label_1)), 2)
     wt2 = round((total_labels / (n_classes * label_2)), 2)
