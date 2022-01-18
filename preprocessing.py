@@ -97,7 +97,7 @@ for i, _ in enumerate(MD_list):
     print(f"Percent for mask number{i}: {percent}%")
     if percent > 0.01:  # At least 1% useful volume with labels that are not 0
         print(f"Saving sample number {i}")
-        temp_mask = to_categorical(temp_mask, num_classes=4)
+        temp_mask = to_categorical(temp_mask, num_classes=3)
 
         if os.path.isfile(f"{output}/{i}/image_" + str(i) + ".npy"):
             if args.verbose:
