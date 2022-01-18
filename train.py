@@ -62,9 +62,8 @@ for train, valid in kf.split(range(34)):    # 33 is the number of samples
     wt0 = round((total_labels / (n_classes * label_0)), 2)
     wt1 = round((total_labels / (n_classes * label_1)), 2)
     wt2 = round((total_labels / (n_classes * label_2)), 2)
-    wt3 = round((total_labels / (n_classes * label_3)), 2)
 
-    dice_loss = DiceLoss(class_weights=np.array([wt0, wt1, wt2, wt3]))
+    dice_loss = DiceLoss(class_weights=np.array([wt0, wt1, wt2]))
     focal_loss = CategoricalFocalLoss()
     # Combining loss functions in order to create better total loss function
     total_loss = dice_loss + (1 * focal_loss)
