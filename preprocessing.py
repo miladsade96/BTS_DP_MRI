@@ -46,7 +46,7 @@ print("-*-" * 50)
 for i, _ in enumerate(MD_list):
     # Adding six zero slices on axis 2 in order to feed .npy file into U-Net model
     # image files shape: (128, 128, 16, 3) and mask files shape: (128, 128, 16, 4)
-    zeros = np.zeros((128, 128, 6))
+    zeros = np.zeros((64, 64, 6))
 
     if args.verbose:
         print(f"Preparing image and mask number: {i}")
