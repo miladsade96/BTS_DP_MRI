@@ -28,10 +28,9 @@ args = parser.parse_args()
 mm_scaler = MinMaxScaler()
 
 # List of Images
-t1_list = sorted(glob.glob(f"{args.dataset}/Train/*/*T1.nii"))
-MD_list = sorted(glob.glob(f"{args.dataset}/Train/*/*MD.nii"))
-rCBV_list = sorted(glob.glob(f"{args.dataset}/Train/*/*rCBV.nii"))
-mask_list = sorted(glob.glob(f"{args.dataset}/Train/*/*mask.nii"))
+MD_list = sorted(glob.glob(f"{args.dataset}/Train/*/MD*.nii"))
+rCBV_list = sorted(glob.glob(f"{args.dataset}/Train/*/rCBV*.nii"))
+mask_list = sorted(glob.glob(f"{args.dataset}/Train/*/mask*.nii"))
 
 
 PATH = os.path.abspath(f"{args.dataset}/")      # Getting absolute path
