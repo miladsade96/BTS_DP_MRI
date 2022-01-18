@@ -41,7 +41,7 @@ for train, valid in kf.split(range(34)):    # 33 is the number of samples
     valid_data_generator = image_generator(path=args.dataset, indexes=valid, batch_size=2)
 
     # Calculating class weights
-    columns = ["0", "1", "2", "3"]
+    columns = ["0", "1", "2"]
     df = pd.DataFrame(columns=columns)
     mask_list = list()
     for index in train:
