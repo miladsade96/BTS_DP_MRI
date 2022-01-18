@@ -29,3 +29,8 @@ model = load_model(filepath=args.model, compile=False)
 # Loading the image and mask
 image = np.load(file=args.image)
 mask = np.load(file=args.mask)
+
+mask_argmax = np.argmax(mask, axis=3)   # Converting from categorical
+img_input = np.expand_dims(image, axis=0)   # Expanding image dimension
+prediction = model.predict(img_input)       # Making a prediction
+prediction_argmax = np.argmax(prediction, axis=4)[0, :, :, :]
