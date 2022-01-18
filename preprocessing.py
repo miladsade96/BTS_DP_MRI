@@ -60,30 +60,9 @@ for i, _ in enumerate(MD_list):
     temp_mask = temp_mask.astype(np.uint8)
     if args.verbose:
         print(f"Mask for sample number {i} converted to uint8.")
-    # Efficient crop
-    flt = np.where(temp_mask[:, :, 4] != 0)  # flt --> filter
-    x, y = flt[0][0], flt[1][0]
-    x = min(x, 63)
-    y = min(y, 63)
-    if args.verbose:
-        print(f"Coordinates for sample number {i}: x: {x}, y: {y}")
-    temp_mask = temp_mask[x:x + 64, y:y + 64, :]
-    if args.verbose:
-        print(f"Mask for sample number {i} cropped")
-        print(f"mask shape: {temp_mask.shape}")
-
-    temp_image_t1 = nib.load(os.path.abspath(t1_list[i])).get_fdata()
-    temp_image_t1 = mm_scaler.fit_transform(temp_image_t1.reshape(-1, temp_image_t1.shape[-1])).reshape(
-        temp_image_t1.shape)
-    if args.verbose:
-        print(f"T1 for sample number {i} Loaded and rescaled.")
-    temp_image_t1 = np.append(temp_image_t1, zeros, axis=2)
-    if args.verbose:
-        print(f"Zeros added to T1 file of sample number {i}")
-    temp_image_t1 = temp_image_t1[x:x + 64, y:y + 64, :]
-    if args.verbose:
-        print(f"T1 for sample number {i} cropped")
-        print(f"Cropped T1 shape: {temp_image_t1.shape}")
+    temp_mask[temp_mask == 1] = 0   # Reassign mask values 1 to 0
+    temp_mask[temp_mask == 2] = 1   # Reassign mask values 2 to 1
+    temp_mask[temp_mask == 3] = 2   # Reassign mask values 3 to 2
 
     temp_image_MD = nib.load(os.path.abspath(MD_list[i])).get_fdata()
     temp_image_MD = mm_scaler.fit_transform(temp_image_MD.reshape(-1, temp_image_MD.shape[-1])).reshape(
