@@ -82,9 +82,9 @@ for i, _ in enumerate(MD_list):
     if args.verbose:
         print(f"Zeros added to rCBV file of sample number {i}")
 
-    temp_combined_images = np.stack([temp_image_t1, temp_image_MD, temp_image_rCBV], axis=3)
+    temp_combined_images = np.stack([temp_image_MD, temp_image_rCBV], axis=3)
     if args.verbose:
-        print(f"T1, MD and rCBV volumes combined as a single MegaVolume.")
+        print(f"MD and rCBV volumes combined as a single MegaVolume.")
         print(f"MegaVolume shape: {temp_combined_images.shape}")
 
     output = os.path.abspath("dataset/npy_files/")
