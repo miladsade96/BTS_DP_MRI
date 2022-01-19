@@ -13,7 +13,7 @@ from model import build_unet_model
 from sklearn.model_selection import KFold
 from tensorflow.keras.optimizers import Adam
 from image_data_generator import image_generator
-from tensorflow.keras.callbacks import TensorBoard
+from tensorflow.keras.callbacks import TensorBoard, CSVLogger
 from segmentation_models_3D.metrics import IOUScore
 from segmentation_models_3D.losses import DiceLoss, CategoricalFocalLoss
 
