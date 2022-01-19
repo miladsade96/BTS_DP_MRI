@@ -69,7 +69,8 @@ for train, valid in kf.split(range(34)):    # 33 is the number of samples
     total_loss = dice_loss + (1 * focal_loss)
 
     # Setting accuracy and IntersectionOverUnion as metrics
-    metrics = ["accuracy", IOUScore(threshold=0.5)]
+    metrics = ["accuracy", "TruePositives", "TrueNegatives", "FalsePositives", "FalseNegatives",
+               "Precision", "Recall", IOUScore(threshold=0.5)]
 
     # Building the model
     model = build_unet_model(64, 64, 16, 2, 3)
