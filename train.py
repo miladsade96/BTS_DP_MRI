@@ -78,6 +78,8 @@ for train, valid in kf.split(range(34)):    # 33 is the number of samples
     # Defining callback objects
     tensorboard_callback = TensorBoard(log_dir="./tb_logs", histogram_freq=1, write_graph=True,
                                        write_images=True, update_freq="epoch")
+    # Defining logger callback
+    logger_callback = CSVLogger("log_file.log", separator=",", append=True)
 
     # Compiling the model
     model.compile(optimizer=Adam(learning_rate=args.learning_rate), loss=total_loss, metrics=metrics)
@@ -92,7 +94,7 @@ for train, valid in kf.split(range(34)):    # 33 is the number of samples
         shuffle=True,
         epochs=args.epochs,
         verbose=args.verbose,
-        callbacks=[tensorboard_callback]
+        callbacks=[tensorboard_callback, logger_callback]
     )
 
     # Saving the trained model
