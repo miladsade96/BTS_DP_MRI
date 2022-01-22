@@ -19,3 +19,6 @@ parser.add_argument("-s", "--save", help="Path to save report.csv file", default
 
 # Parsing the arguments
 args = parser.parse_args()
+
+# Absolute path of csv file
+path = abspath(args.file_path)
