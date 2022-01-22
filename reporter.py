@@ -38,3 +38,6 @@ if args.verbose:
 df["f1_score"] = 2 * ((df["precision"] * df["recall"]) / (df["precision"] + df["recall"]))
 df["val_f1_score"] = 2 * ((df["val_precision"] * df["val_recall"]) / (df["val_precision"] + df["val_recall"]))
 df = df.loc[df["epoch"] == 299]     # Setting a filter to store only last epoch of each fold
+if args.verbose:
+    print("Saving final report.csv file.")
+df.to_csv(f"{args.save}/report.csv")    # Save csv file
