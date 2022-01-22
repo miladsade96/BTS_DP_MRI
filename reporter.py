@@ -22,3 +22,12 @@ args = parser.parse_args()
 
 # Absolute path of csv file
 path = abspath(args.file_path)
+
+# Reading csv file with certain columns
+if args.verbose:
+    print("Reading log_file.csv")
+df = pd.read_csv(filepath_or_buffer=f"{path}/log_file.csv", header=0, sep=",",
+                 usecols=[
+                         "epoch", "accuracy", "loss", "iou_score", "precision", "recall",
+                         "val_accuracy", "val_loss", "val_iou_score", "val_precision", "val_recall"
+                     ])
