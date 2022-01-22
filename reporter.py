@@ -31,3 +31,10 @@ df = pd.read_csv(filepath_or_buffer=f"{path}/log_file.csv", header=0, sep=",",
                          "epoch", "accuracy", "loss", "iou_score", "precision", "recall",
                          "val_accuracy", "val_loss", "val_iou_score", "val_precision", "val_recall"
                      ])
+
+# Calculating f1_score and validation f1_score columns
+if args.verbose:
+    print("calculating f1_score based on precision and recall.")
+df["f1_score"] = 2 * ((df["precision"] * df["recall"]) / (df["precision"] + df["recall"]))
+df["val_f1_score"] = 2 * ((df["val_precision"] * df["val_recall"]) / (df["val_precision"] + df["val_recall"]))
+df = df.loc[df["epoch"] == 299]     # Setting a filter to store only last epoch of each fold
