@@ -25,16 +25,14 @@ Desired dataset structure:
 ```
 .
 └── Train
-    ├── 001
-    │   ├── 001-mask.nii
-    │   ├── 001-MD.nii
-    │   ├── 001-rCBV.nii
-    │   └── 001-T1.nii
-    ├── 002
-    │   ├── 002-mask.nii
-    │   ├── 002-MD.nii
-    │   ├── 002-rCBV.nii
-    │   └── 002-T1.nii
+    ├── 100
+    │   ├── mask_100.nii
+    │   ├── MD_100.nii
+    │   ├── rCBV_100.nii
+    ├── 101
+    │   ├── mask_101.nii
+    │   ├── MD_101.nii
+    │   ├── rCBV_101.nii
 ```
 Do preprocessing on dataset:
 ```shell
