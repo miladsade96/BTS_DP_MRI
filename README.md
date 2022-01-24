@@ -20,7 +20,7 @@
 
 
 ## Sample Pipeline
-**Pre-processing:**  
+### Pre-processing:  
 **Desired dataset structure:**  
 Input data shape: 64x64x10
 ```
@@ -35,7 +35,7 @@ Input data shape: 64x64x10
     │   ├── MD_101.nii
     │   ├── rCBV_101.nii
 ```
-Do preprocessing on dataset:
+**Do preprocessing on dataset:**  
 ```shell
 python preprocessing.py --verbose --dataset <path to dataset directory>
 ```
@@ -53,7 +53,7 @@ npy_files/
 │   ├── mask_1.npy
 │   └── image_1.npy
 ```
-**Training the model:**
+**Training the model:**  
 ```shell
 python train.py --verbose --dataset <path to npy_files> --learning_rate 0.0001 --batch_size 2 --epochs 100 --save ./
 ```
@@ -61,7 +61,7 @@ After completing training process, command above will save entire trained model 
 , save training process history details as a *.csv* file and plot training process diagrams.
 
 
-## Results
+### Results
 **Train:**  
 
 | Fold    |  Accuracy      |   IOU Score   |   Loss        |   Precision  |   Recall   |   F1-Score   |
