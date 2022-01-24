@@ -61,6 +61,13 @@ After completing training process, command above will save entire trained model 
 , save training process history details as a *.csv* file and plot training process diagrams.
 
 
+### Build report file:
+As we mentioned earlier, train script saves training process history details. The *reporter.py*
+file drops unnecessary rows and columns and calculates *f1_score* value for both training and validation.
+```shell
+python reporter.py -v --file_path <path to log_file.csv> --save <path to save new .csv file>
+```
+
 ### Results
 **Train:**  
 
