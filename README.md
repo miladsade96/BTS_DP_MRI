@@ -21,7 +21,8 @@
 
 ## Sample Pipeline
 **Pre-processing:**  
-Desired dataset structure:  
+**Desired dataset structure:**  
+Input data shape: 64x64x10
 ```
 .
 └── Train
@@ -39,7 +40,10 @@ Do preprocessing on dataset:
 python preprocessing.py --verbose --dataset <path to dataset directory>
 ```
 This will create a new directory called *npy_files*, then creates specific folders for
-each sample we have in dataset and saves *image.npy* and *mask.py* files in these folders.
+each sample we have in dataset and saves *image.npy* and *mask.py* files in these folders.  
+* Output data shape:  
+    * Image: 64x64x16x2     
+    * Mask: 64x64x16x3
 ```
 npy_files/
 ├── 0
@@ -53,7 +57,8 @@ npy_files/
 ```shell
 python train.py --verbose --dataset <path to npy_files> --learning_rate 0.0001 --batch_size 2 --epochs 100 --save ./
 ```
-After completing training process, command above will save trained model as a *.hdf5* file and display training process history.
+After completing training process, command above will save entire trained model as a *.pb* file
+, save training process history details as a *.csv* file and plot training process diagrams.
 
 
 ## License
