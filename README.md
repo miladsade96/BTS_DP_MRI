@@ -61,6 +61,20 @@ After completing training process, command above will save entire trained model 
 , save training process history details as a *.csv* file and plot training process diagrams.
 
 
+## Results
+**Train:**  
+
+| Fold    |  Accuracy      |   IOU Score   |   Loss        |   Precision  |   Recall   |   F1-Score   |
+|  :----: |    :----:      |   :----:      |  :----:       |    :----:    |   :----:   |   :----:     |
+| 1       | 0.968775       |   0.897440    |  -1.903993    |   0.968788   |  0.968766  |  0.968777    |
+| 2       | 0.970905       |   0.903380    |  -1.730110    |   0.970907   |  0.970904  |  0.970905    |
+| 3       | 0.972417       |   0.907598    |  -1.769276    |   0.972422   |  0.972415  |  0.972419    |
+| 4       | 0.972910       |   0.910098    |  -1.937584    |   0.972916   |  0.972903  |  0.972909    |
+| 5       | 0.973350       |   0.912430    |  -1.882656    |   0.973355   |  0.973342  |  0.973349    |
+| 6       | 0.972398       |   0.907724    |  -1.793769    |   0.972407   |  0.972395  |  0.972401    |
+| 7       | 0.973002       |   0.905900    |  -1.848724    |   0.973010   |  0.972997  |  0.973004    |
+| 8       | 0.971803       |   0.906942    |  -1.939411    |   0.971807   |  0.971801  |  0.971804    |
+
 ## License
 This project licensed under the MIT License - see the [LICENSE](LICENSE) file for more details.
 
