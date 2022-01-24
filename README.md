@@ -96,6 +96,17 @@ python reporter.py -v --file_path <path to log_file.csv> --save <path to save ne
 | 8       | 0.885597       |   0.618338    |  -0.897051    |   0.885608   |  0.885578  |  0.885593    |
 
 
+### Making a prediction
+First you have to do preprocess on your sample different modalities and generate *image.nii* and
+*mask.npy* and then run *predict.py* script:
+```shell
+python predict.py --model <path to saved model directory> --image <path to preprocessed .npy image file>
+--mask <path to preprocessed .npy mask file> --verbose --save_plot --slice 6
+```
+Sample output:
+![Prediction](data/prediction.png)
+
+
 ## License
 This project licensed under the MIT License - see the [LICENSE](LICENSE) file for more details.
 
